@@ -1,0 +1,26 @@
+思路：
+1.先对数组排序
+2.再将数组前k个数输出，即为某一数组中前k个最小的数
+复杂度分析
+
+时间复杂度：O(nlog n)，其中n是数组 arr 的长度。算法的时间复杂度即排序的时间复杂度。
+
+空间复杂度：O(log n)，排序所需额外的空间复杂度为O(logn)。
+
+class Solution:
+    def getLeastNumbers(self, arr: List[int], k: int) -> List[int]:
+        arr.sort()
+        list = []
+        for i in range(k):
+            list.append(arr[i])
+
+        return list
+
+超级简写：（emmmm）
+        arr.sort()
+        return arr[:k]
+        
+其实本题可以考察：（下次再整）
+1.大根堆/小根堆
+2.快排
+
