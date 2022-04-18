@@ -1,11 +1,24 @@
+题目：
+找出数组中重复的数字。
+在一个长度为 n 的数组 nums 里的所有数字都在 0～n-1 的范围内。数组中某些数字是重复的，但不知道有几个数字重复了，也不知道每个数字重复了几次。请找出数组中任意一个重复的数字。
 
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof
+
+# 只要输出一个重复的就行
 class Solution:
     def findRepeatNumber(self, nums: List[int]) -> int:
         list = []
-        n = len(nums) - 1
+        n = len(nums)
         for i in range(n):
             if nums[i] not in list:
                 list.append(nums[i])
             else:
-                print(nums[i])
+                return nums[i]
                 break
+
+看了一下题解，大家都说要用哈希表。。。这题往深了想应该是要充分考虑时间复杂度和空间复杂度
+
+有两个思路可以借鉴：
+1.先排序，然后看相邻数有没有一样的
+2.用集合存储，（集合无序且不重复）
