@@ -1,0 +1,35 @@
+思路：
+1.有序数组且唯一可以用二分法
+2.那就让真正的middle和索引为mid的值去比较
+
+class Solution:
+    def missingNumber(self, nums: List[int]) -> int:
+        l, r = 0, len(nums) - 1
+        while l <= r:
+            mid = l + (r - l) // 2
+            middle = nums[l] + (nums[r] - nums[l]) // 2
+            if nums[mid] <= middle:
+                l = mid + 1
+            else:
+                return middle
+                
+为什么面对测试用例[0,1,3]时输出为null？
+
+
+有几个没想到的思路：
+1.理论的和减去实际的和即为缺少的数字
+2.用索引和值一一对应，如果哪个索引和值没有对应，则这个索引就是确实的数
+
+标准写法：
+重点是找到二分的分界点，这里就是：索引和值相等的部分是正常部分，left要向右移；索引和值不相等的地方是出错后的值，right要向左移；最终left停留在丢失数的位置
+class Solution:
+    def missingNumber(self, nums: List[int]) -> int:
+        l, r = 0, len(nums) - 1
+        while l <= r:
+            mid = l + (r - l) // 2
+            if nums[mid] == mid:
+                l = mid + 1
+            else:
+                r = mid - 1
+        
+        return l 
