@@ -1,0 +1,43 @@
+思路：
+1.遍历字符串
+2.遇到空格就将其替换
+
+for i in s:
+	if i == ' ':
+		i = 1
+
+print(s)  #这样写不对欸。。。因为：Python中，字符串是不可变类型，即无法直接修改字符串的某一位字符！！！！！！要记住
+
+遇到的问题：
+1.如何遍历字符串？
+（1）直接 for everychar in s:
+（2）利用索引 for index in range(len(s)):
+（3）for index, everyChar in enumerate(s):
+（4）for everyChar in iter(s):
+
+2.如何替换字符串中的字符？
+（1）使用replace函数 str.replace(old_c,new_c,[max]) max是最多替换几次的意思
+（2）将字符串转变为字符串数组再将其字符改变
+
+一、直接写法：（但面试不可取）
+开始是这么写的：
+class Solution:
+    def replaceSpace(self, s: str) -> str:
+        s.replace(' ','%20');
+        return s
+发现并不能输出想要的结果，所以replace并没有改变原始的字符串数据  直接  return s.replace(' ','%20');
+
+二、先将字符串转化为字符串数组，然后遍历数组，将数组中的字符改变，接着将数组转化为字符串，最后输出字符串
+class Solution:
+    def replaceSpace(self, s: str) -> str:
+        list = []
+        for i in s:
+            list.append(i)
+
+        n = len(list)
+        for i in range(n):
+            if list[i] == ' ':
+                list[i] = '%20'
+
+        str = ''.join(list) #数组转字符串的方法
+        return str
