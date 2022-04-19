@@ -1,0 +1,46 @@
+思路：
+1.新建一个计数器
+2.遍历数组，遍历到与target相同的数则计数器加一
+3.返回计数器
+
+时间复杂度：O(n) 空间复杂度：
+
+编写过程中遇到的问题：
+1.对range(n)的范围不清楚，其实就是range(0,n,1)，其他的没写出来就是默认值，然后前闭后开。
+
+
+class Solution:
+    def search(self, nums: List[int], target: int) -> int: 
+        count = 0
+        n = len(nums)
+        for i in range(n):
+            if nums[i] == target:
+                count += 1
+        
+        return count
+  
+  其实本题是想考察二分：
+  可以利用两次二分法，分别寻找左右边界，（左右边界将目标值包含在里面，目标值不包括边界）
+  
+  class Solution:
+    def search(self, nums: List[int], target: int) -> int: 
+        l, r = 0, len(nums) - 1
+        while l <= r:
+            mid = l + (r - l) // 2
+            if nums[mid] > target:
+                r = mid - 1
+            else:
+                l = mid + 1
+        i = l
+        # 若数组中无 target ，则提前返回——这里不李姐  为何这样判断？
+        if r >= 0 and nums[r] != target: return 0
+        l = 0
+        while l <= r:
+            mid = l + (r - l) // 2
+            if nums[mid] >= target:
+                r = mid - 1
+            else:
+                l = mid + 1
+        j = r
+
+        return i - j - 1
