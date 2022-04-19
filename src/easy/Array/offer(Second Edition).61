@@ -1,0 +1,19 @@
+不会啊。。。
+
+重点思路：
+1.5张牌要成为一个顺子，首先不能有重复的；（不包括大小王）——————这里用集合去重
+2.最大值减去最小值一定小于5（不管有几张大小王，一律跳过）
+
+class Solution:
+    def isStraight(self, nums: List[int]) -> bool:
+        repeat = set()
+        ma, mi = 0, 14 #这里最小值的初始值要设为14，才能不断取小
+        for i in nums:
+            if i == 0:
+                continue #大小王不管
+            ma = max(i, ma)
+            mi = min(i, mi)
+            if i in repeat: #去重
+                return False
+            repeat.add(i) #向集合中添加元素用add，不是append
+        return ma - mi < 5
