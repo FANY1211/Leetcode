@@ -1,0 +1,58 @@
+思路：
+1.开辟三个字符串数组
+2.第一个放原本的字符串，第二个放需要左旋的那部分，第三个放除去左旋部分后的剩余部分
+3.将字符串拼接
+
+这样做空间复杂度比较高。。。
+方法一：
+class Solution:
+    def reverseLeftWords(self, s: str, n: int) -> str:
+        list, list1, list2 = [], [], []
+
+        for j in s:
+            list.append(j)
+
+        m = len(s)
+        for i in range(m):
+            if i < n:
+                list2.append(list[i])
+            else:
+                list1.append(list[i])
+
+        str1 = "".join(list1)
+        str2 = "".join(list2)
+
+        return str1 + str2
+ 
+ 方法二：（不让开辟新的空间）
+ 无语做法：用切片
+ class Solution:
+    def reverseLeftWords(self, s: str, n: int) -> str:
+        return s[n:] + s[:n]
+        
+ 方法三：（如果不让直接用切片，就用这个做法）
+ 1.先将需要左旋的部分反转
+ 2.再将剩余部分反转
+ 3.将整体反转
+ class Solution:
+    def reverseLeftWords(self, s: str, n: int) -> str:
+        s = list(s)
+        s[:n] = reversed(s[:n])
+        s[n:] = reversed(s[n:])
+        return "".join(reversed(s))
+        
+# 方法四：（如果连reversed也不让使用，那么自己手写一个）
+class Solution:
+    def reverseLeftWords(self, s: str, n: int) -> str:
+        def reverse_sub(lst, left, right):
+            while left < right:
+                lst[left], lst[right] = lst[right], lst[left]
+                left += 1
+                right -= 1
+        
+        res = list(s)
+        end = len(res) - 1
+        reverse_sub(res, 0, n - 1)
+        reverse_sub(res, n, end)
+        reverse_sub(res, 0, end)
+        return ''.join(res)
