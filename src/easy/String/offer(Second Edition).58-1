@@ -1,0 +1,13 @@
+没思路。。。
+
+体现的问题：
+1.对内置函数不熟：
+split() 依据空格将字符串分开
+join() 
+reversed() 是python的内置方法 而reverse()是列表的内置方法
+
+class Solution:
+    def reverseWords(self, s: str) -> str:
+        return ' '.join(reversed(s.split()))
+        
+还有其他方法。。。下次再看
