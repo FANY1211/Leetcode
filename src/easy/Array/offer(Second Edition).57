@@ -1,0 +1,20 @@
+思路：
+1.首先看到递增排序数组，想到二分法
+2.因为数组是有序的，所以两数和如果大于target,那么最右边的数要往里面缩；如果两数和小于target，则左边的数往里缩
+
+但写出来只是用了左右指针，没有用二分法
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        l, r = 0, len(nums) - 1
+        while l < r:
+            if nums[l] + nums[r] < target:
+                l += 1
+            elif nums[l] + nums[r] > target:
+                r -= 1
+            else:
+                return [nums[l],nums[r]]
+                
+应该可以写成二分法，加快速度吧？
+NO 咱这是“对撞双指针”，已经最优解了   O（n）  O（1）
+
+利用 HashMap 可以通过遍历数组找到数字组合，时间和空间复杂度均为 O(N)O(N) ；
