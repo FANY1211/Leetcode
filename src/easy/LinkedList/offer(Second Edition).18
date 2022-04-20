@@ -1,0 +1,26 @@
+思路：
+1.遍历链表，直到发现与目标值相同的元素
+2.将该元素前面的元素连到它后面的元素
+
+注意的细节：
+1.如果头节点指向的元素就是目标值，那应该直接返回head.next
+2.因为给了头节点，所以头节点用pre代表，头节点的下一个节点用cur代表
+3.cur存在两种情况：为空或者不为空
+  （1）为空时直接返回head，说明链表中不存在需要删除的val
+  （2）当cur不为空时，也分两种情况：
+       a.此时cur指针对应的元素不等于目标值val，则需要将pre和cur均向后移动一个位置，继续搜索
+       b.此时cur指针对应的元素等于目标值val，则pre指向cur的下一个元素，即跳过cur，断了链接也就删除了元素
+ 4.最后，返回head
+
+class Solution:
+    def deleteNode(self, head: ListNode, val: int) -> ListNode:
+        if head.val == val: return head.next
+        pre, cur = head, head.next
+
+        while cur and cur.val != val:
+            pre, cur = cur, cur.next
+        
+        if cur:
+            pre.next = cur.next
+        
+        return head 
