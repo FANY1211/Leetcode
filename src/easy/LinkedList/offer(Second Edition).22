@@ -1,0 +1,29 @@
+不会欸。。。
+
+1.一开始觉得最简单的遍历总能写出来吧，可是想写却写不出来，没法像之前for i in range(n)...，这是为什么呢？
+2.原来是因为没办法直接用len()查看链表的长度，那怎么办呢？
+3.可以用一个循环计数器来把链表的长度累加出来
+while node:
+  node = node.next
+  n += 1
+  最后n就是链表的长度了。
+4.本以为有了链表的长度就可以顺利写下去了，可是又遇到了一个问题：怎么输出呢？
+5.首先要明白，输出一个链表，就是输出它的头结点，找到头结点就找到了链表，所以要想办法将原本head往后移，移到我们要输出的位置，return就好啦
+（这里注意移动的次数，n-k）
+
+class Solution:
+    def getKthFromEnd(self, head: ListNode, k: int) -> ListNode:
+        node, n = head, 0
+
+        while node:
+            node = node.next
+            n += 1
+        
+        node = head
+        for i in range(n - k):
+            node = node.next
+        
+        return node
+
+
+本题也可以用快慢指针做，下次搞。。。
