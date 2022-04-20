@@ -1,0 +1,33 @@
+没思路。。。
+
+1.单个栈是先进后出的，所以无法实现队列操作
+2.但两个栈组合可以实现队列的队头队尾操作
+
+构建过程：
+1.建立两个栈A,B
+2.向队尾添加元素的实现：直接向栈A添加元素
+3.删除队头元素的实现：
+（1）如果栈B不为空，则直接从栈中弹出元素
+（2）如果栈B为空，栈A也为空，则返回-1
+（3）如果栈B为空，栈A不为空，则将栈A元素弹出，并依次入栈B；入完后弹出栈B栈顶元素
+
+class CQueue:
+
+    def __init__(self):
+        self.S_A, self.S_B = [], []
+
+    def appendTail(self, value: int) -> None:
+        self.S_A.append(value)
+
+    def deleteHead(self) -> int:
+        if self.S_B: #如果栈B不为空
+            return self.S_B.pop() #直接从栈中弹出元素
+        if not self.S_A: return -1 #如果栈B为空，栈A也为空，则返回-1
+        while self.S_A: #如果栈B为空，栈A不为空
+            self.S_B.append(self.S_A.pop()) #将栈A元素弹出，并依次入栈B
+        return self.S_B.pop() #弹出栈B栈顶元素
+
+# Your CQueue object will be instantiated and called as such:
+# obj = CQueue()
+# obj.appendTail(value)
+# param_2 = obj.deleteHead()
