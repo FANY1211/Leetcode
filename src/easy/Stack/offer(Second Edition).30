@@ -1,0 +1,37 @@
+重要思路：
+本题的关键在于min()方法的实现的时间复杂度为O(1)
+如何降低它的时间复杂度呢？就是使用两个栈，一个实现正常的压栈和出栈，另一个用于专门弹出最小值
+就好像 栈B是栈A的一个较小值映射
+
+
+class MinStack:
+
+    def __init__(self):
+        """
+        initialize your data structure here.
+        """
+        self.A, self.B = [], []
+
+    def push(self, x: int) -> None:
+        self.A.append(x)
+        if not self.B or self.B[-1] >= x:  #如果栈B为空或者栈B栈顶的元素大于等于即将入栈A的元素，入栈A的同时也入栈B
+            self.B.append(x)
+
+    def pop(self) -> None:
+        if self.A.pop() == self.B[-1]:  #A出栈时，如果栈B栈顶的元素和即将出栈的元素相等时，也要将栈B中的元素弹出
+            self.B.pop()
+
+    def top(self) -> int:
+        return self.A[-1]
+
+    def min(self) -> int:
+        return self.B[-1]
+
+
+
+# Your MinStack object will be instantiated and called as such:
+# obj = MinStack()
+# obj.push(x)
+# obj.pop()
+# param_3 = obj.top()
+# param_4 = obj.min()
