@@ -1,0 +1,21 @@
+不太会。。。
+
+遇到的问题：链表应该怎样处理？每次遇到链表就会抵触。。。
+
+思路：
+1.其实抛开什么递归，什么栈，单纯看本题想要解答出来很简单
+2.要以数组的形式返回，那就先建一个列表
+3.head 是头指针，head指向不为空就说明head指向了一个存在的元素
+4.head.val 是此时以head为指针的元素值；head.next是head后面的指针
+5.list.reverse()本身是没有返回值的，所以直接写return list.reverse() 会返回null；所以要用的话得分开写
+
+class Solution:
+    def reversePrint(self, head: ListNode) -> List[int]:
+        list = []
+
+        while head:
+            list.append(head.val)
+            head = head.next
+        
+        list.reverse()
+        return list #可以使用切片，return list[::-1]
