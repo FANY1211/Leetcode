@@ -1,0 +1,44 @@
+要用这道题实现一下之前的lj想法了：
+方法一：
+1.建一个列表，将链接放入列表中
+2.用翻转函数将列表元素翻转
+3.再把列表转成链表
+
+遇到的问题：列表怎么转链表？
+（1）head = ListNode(List[0]) #创建一个头节点并将list第一个值赋值给头结点
+（2）p = head #创建头指针
+（3）for i in range(1, len(List)): #list从第二位开始遍历
+        p.next = ListNode(List[i]) #下一个结点p.next指向list值
+        p = p.next #指针往下移动
+（4）return head #返回头结点
+
+这样写可以避免列表为空的情况：（按上面写的话，列表为空时会数组越界）
+class Solution:
+    def reverseList(self, head: ListNode) -> ListNode:
+        list = []
+        while head:
+            list.append(head.val)
+            head = head.next
+
+        list.reverse()
+        node = ListNode(0) #这里有点不太懂什么意思     
+        p = node
+        for i in list:                              # while res:                                
+            p.next = ListNode(i)                    # p.next = ListNode(res.pop()) 这两句也可以使用出栈写
+            p = p.next
+        return node.next
+       
+ 方法二：
+ 1.使用双指针
+ 
+ class Solution:
+    def reverseList(self, head: ListNode) -> ListNode:
+        cur, pre = head, None
+
+        while cur:
+            tmp = cur.next #使用tmp暂存cur的后继结点
+            cur.next = pre #把cur的后继指向pre
+            pre = cur #pre来到cur处，开始反转
+            cur = tmp #cur来到tmp，继续准备反转
+
+        return pre #到最后cur已经没有指向了，pre则来到了末尾，也就是新链表的头结点
