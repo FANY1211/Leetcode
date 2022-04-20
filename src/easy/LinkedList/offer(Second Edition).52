@@ -1,0 +1,18 @@
+没思路。。。
+
+但其实运用的原理比较简单：
+A走完A的路后来走B的路
+B走完B的路后来走A的路
+A B 终会相遇（A B走的路一样的时候）
+
+class Solution:
+    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
+        A, B = headA, headB
+        while A != B:
+            A = A.next if A else headB #
+            B = B.next if B else headA
+        return A
+
+A = A.next if A else headB 
+#这里是三目运算符，拿出来理解一下：
+res = exp1 if contion else exp2 如果contion为真，则运行exp1;如果为假，则运行exp2
