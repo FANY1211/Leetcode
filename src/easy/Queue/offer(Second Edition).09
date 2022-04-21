@@ -1,0 +1,40 @@
+这个题和Stack里面的09一样
+
+但是第二次写的时候感觉第一次写的：
+如果B不为空，就直接输出B有失妥当；如果B不为空，可能只是压入了A的一部分，并没有将A完整压入，那么此时B栈顶的元素就不是队首元素，直接输出的话就不对
+
+所以感觉应该这样写：
+class CQueue(object):
+
+    def __init__(self):
+        self.A, self.B = [], []
+        
+
+    def appendTail(self, value):
+        """
+        :type value: int
+        :rtype: None
+        """
+        self.A.append(value)
+
+
+    def deleteHead(self):
+        """
+        :rtype: int
+        """
+        if self.A:
+            self.B.append(self.A.pop())
+            return self.B.pop()
+        else:
+            if self.B:
+                return self.B.pop()
+            else:
+                return -1
+        
+
+
+
+# Your CQueue object will be instantiated and called as such:
+# obj = CQueue()
+# obj.appendTail(value)
+# param_2 = obj.deleteHead()
