@@ -1,0 +1,31 @@
+思路：
+1.首先想到的是类似于offer.32-2的做法，将每层的元素放到一个小列表中，最后将一个个小列表放到大列表中
+2.返回大列表的长度，就是该二叉树的深度
+
+该算法运用了层序遍历，也就是BFS
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def maxDepth(self, root: TreeNode) -> int:
+        if not root: return 0
+        res, queue = [], collections.deque()
+        queue.append(root)
+
+        while queue:
+            tmp = []
+            for i in range(len(queue)):
+                node = queue.popleft()
+                tmp.append(node.val)
+                if node.left: queue.append(node.left)
+                if node.right: queue.append(node.right)
+            res.append(tmp)
+
+        return len(res)        
+
+也可以用DFS，后面用
