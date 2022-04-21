@@ -1,0 +1,38 @@
+层次遍历如何遍历？
+注意：
+1.题目要求的二叉树的 从上至下 打印（即按层打印），又称为二叉树的 广度优先搜索（BFS）。
+2.BFS 通常借助 队列 的先入先出特性来实现。
+
+思路：
+1.首先要有三个列表，第一个是用来输出最后结果的列表，第二个是输出结果中的小列表（每一行放到一个小列表中），第三个就是类似于列表的队列（python独有的双端队列）
+2.先考虑树为空的情况：返回[]
+3.当树不空时，将根节点压入队列，它一会将是第一个被输出的元素；
+4.利用循环不断出队（一个循环就要出队一行）
+5.每次循环都要把小列表清空，确保只有这一行的元素
+6.如何把队列中的一行元素都排空呢？利用for循环，队列的长度是每次每行元素的个数，后加进去的元素并不会影响一开始计算的长度（这里不是每次把队列中的元素都出队）
+7.node是每个节点，node.val才是要入队并输出的元素
+8.
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def levelOrder(self, root: TreeNode) -> List[List[int]]:
+        if not root: return []
+        res, queue = [], collections.deque()
+        queue.append(root)
+        while queue:
+            temp = []
+            for i in range(len(queue)): #细品
+                node = queue.popleft()
+                temp.append(node.val)
+                if node.left: queue.append(node.left)
+                if node.right: queue.append(node.right)
+            res.append(temp)
+        return res
+
+
