@@ -20,3 +20,15 @@ class Solution:
             if dict[c]:
                 return c
         return ' '
+
+
+因为python3.6及以后的字典是有序的，那么以此构造的哈希表也是有序的，可以通过顺序来反应“首个”不重复的数字
+class Solution:
+    def firstUniqChar(self, s: str) -> str:
+        dic = {}
+        for c in s:
+            dic[c] = not c in dic
+        for k, v in dic.items(): #dic.item()返回可遍历的(键, 值) 元组数组
+            if v: return k
+        return ' '
+
