@@ -1,0 +1,30 @@
+一开始想跟上一题一样，写一个镜像函数，把树的镜像写出来，然后对比二者。。。好麻烦
+
+正确思路：
+1.利用函数的递归，建一个递归函数用来对比左右子树
+2.返回True的情况：
+ （1）树为空
+ （2）根节点下的左子树和右子树值相等，且左子树下面的两个结点（左右）分别和右子树子树下面的两个结点（右左）相等   （这样才是对称镜像）
+3.返回False的情况：
+ （1）左子树或右子树为空
+ （2）左子树或右子树不相等，或者镜像节点不相等
+
+注意：一定要把左右放进去遍历看对不对，也要把右左也放进去看对不对
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def isSymmetric(self, root: TreeNode) -> bool:
+        if not root: return True
+        def duibi(L,R):
+            if not L and not R: return True
+            if not L or not R or L.val != R.val:
+                return False
+            return duibi(L.left, R.right) and duibi(L.right, R.left)
+
+        return duibi(root.left, root.right)
