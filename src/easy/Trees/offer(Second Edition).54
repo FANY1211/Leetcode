@@ -1,0 +1,45 @@
+本题关键：二叉搜索树 = 二叉查找树 = 二叉排序树
+因为是二叉搜索树，所以中序遍历后的结果是一个递增序列；其倒序是一个递减序列
+
+所以从中序遍历的倒序中取出第k个就对了
+
+# 打印中序遍历
+def dfs(root):
+    if not root: return
+    dfs(root.left)  # 左
+    print(root.val) # 根
+    dfs(root.right) # 右
+
+# 打印中序遍历倒序
+def dfs(root):
+    if not root: return
+    dfs(root.right) # 右
+    print(root.val) # 根
+    dfs(root.left)  # 左
+    
+将中间打印的步骤变为：
+if k == 0: return
+k -= 1
+if k == 0: self.res = root.val
+
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def kthLargest(self, root: TreeNode, k: int) -> int:
+        def dfs(root):
+            if not root: return
+            dfs(root.right)
+            if self.k == 0: return
+            k -= 1
+            if self.k == 0: self.res = root.val
+            dfs(root.left)
+        
+        self.k = k 
+        dfs(root)
+        return self.res
