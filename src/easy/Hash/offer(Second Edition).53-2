@@ -1,0 +1,22 @@
+排序数组中的搜索问题，首先想到二分法
+
+class Solution:
+    def missingNumber(self, nums: List[int]) -> int:
+ l, r = 0, len(nums) - 1  #要注意这里是否减一，本题如果不减一，会导致数组越界，因为有的用例只有一个元素
+        while l <= r:  #要注意这里是< 还是 <= , 如果上面不减一，下面肯定得搭配 < ，不能取边界
+            mid = l + (r - l) // 2
+            if nums[mid] <= mid:   #也可以写成if nums[mid] == mid:
+                l = mid + 1
+            else:
+                r = mid - 1
+        return l
+        
+
+一开始想用数组元素和索引一一对应的方法检测，可是有的用例只有一个数字，没办法单纯检测，不知道可不可以添加其他条件来达到目的
+        # for i in range(len(nums)):
+        #     if nums[i] == i:
+        #         continue
+        #     else:
+        #         return i
+
+
