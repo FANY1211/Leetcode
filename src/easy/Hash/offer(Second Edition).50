@@ -1,0 +1,20 @@
+思路：
+1.建立哈希表  字符和目标一一对应
+2.主要是这个取value的写法：dic[key]
+
+class Solution:
+    def firstUniqChar(self, s: str) -> str:
+        dic = {}
+        for c in s:
+            dic[c] = not c in dic
+        for c in s:
+            if dic[c]: return c
+        return ' '
+
+class Solution:
+    def firstUniqChar(self, s: str) -> str:
+        fre = collections.Counter(s)
+        for i in fre:
+            if fre[i] == 1:
+                return i
+        return ' '
