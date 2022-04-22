@@ -1,0 +1,37 @@
+思路：
+1.新建一个字典，然后遍历数组，将数组数字和其对应的出现次数以键值对的形式存入字典，相当于建立一个哈希表
+2.从哈希表种取出任意出现次数，也就是值大于1的数字
+
+这个思路有待商榷。。。并且还没写出来
+
+有另外两个方法：
+（1）建立一个集合，或者列表；然后遍历数组，如果数字在集合（列表）种，则直接输出，如果不在就加入集合（列表）种，继续遍历
+但是这里要注意：
+查找效率：set>dict>list
+list 就是O(n)；
+set做了去重，本质应该一颗红黑树(猜测，STL就是红黑树)，复杂度O(logn)；                                                    #这里不知道对不对
+dict类似对key进行了hash,然后再对hash生成一个红黑树进行查找，其查找复杂其实是O(logn),并不是所谓的O(1)。
+O(1)只是理想的实现，实际上很多hash的实现是进行了离散化的。dict比set多了一步hash的过程，so 它比set慢，不过差别不大。
+
+class Solution:
+    def findRepeatNumber(self, nums: List[int]) -> int:
+       dic = set()
+       for i in nums:
+            if i in dic:
+               return i
+            dic.add(i)
+ 
+（2）K大佬的想法——原地交换：
+因为由题可以得出，数组的索引和数组中的数字是一对多的关系，那么就可以把数字的值和索引一一对应起来，这样就类似于一个哈希表的结构。
+class Solution:
+    def findRepeatNumber(self, nums: List[int]) -> int:
+        i = 0
+        while i < len(nums):
+            if nums[i] == i:     #如果值和索引已经对应，那很好，下一个
+                i += 1
+                continue
+            if nums[nums[i]] == nums[i]: return nums[i]     #当值和索引不再对应了，那就要判断值和它应该在的那个索引上的那个数相不相等，相等就说明重复了，返回
+            nums[nums[i]], nums[i]= nums[i], nums[nums[i]]    #不相等那就换一下，把它换到它应该在的地方
+            #注意这里交换的代码，不可以写成 nums[i],nums[nums[i]]=nums[nums[i]],nums[i]
+             因为等号右边的数字在赋值时时从左到右赋值，而nums[nums[i]]中复用了nums[i]，如果先改变nums[i]的值，那么nums[nums[i]]会受到影响
+        return -1
