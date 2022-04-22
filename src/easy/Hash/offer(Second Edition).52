@@ -1,0 +1,37 @@
+思路是对的，就是没办法一下子写出这么精简干练的代码
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution:
+    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
+        node1, node2 = headA, headB
+        while node1 != node2:
+            node1 = node1.next if node1 else headB
+            node2 = node2.next if node2 else headA
+        return node1
+        
+ 
+也可以利用哈希集合：
+先遍历A，将其放入集合；再遍历B，找到第一个在集合中的点，这就是相交点
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution:
+    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
+        dic = set()
+        node1, node2 = headA, headB
+        while node1:
+            dic.add(node1)
+            node1 = node1.next
+        
+        while node2:
+            if node2 in dic:
+                return node2
+            node2 = node2.next
