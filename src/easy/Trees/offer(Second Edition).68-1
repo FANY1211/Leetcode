@@ -1,0 +1,30 @@
+首先根据公共祖先的定义可以得出root为p,q公共祖先的三个可选条件：
+（1）p,q位于root的两侧
+（2）root = p,且q在root的左子树或右子树中
+（3）root = q,且p在root的左子树或右子树中
+
+进一步地，本题说该二叉树是搜索二叉树，且树的所有结点都是唯一的，所以：
+（1）若p.val > root.val,p在root的右侧
+（2）若p.val < poot.val,p在root的左侧
+（3）若p.val == poot.val,p就是root
+q的判断同上
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        while root:
+            if root.val > p.val and root.val > q.val: #p,q 都在root的左边
+                root = root.left
+            elif root.val < p.val and root.val < q.val: #p,q都在root的右边
+                root = root.right
+            else:
+                break
+        
+        return root
+
