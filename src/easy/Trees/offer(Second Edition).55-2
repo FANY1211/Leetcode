@@ -1,2 +1,12 @@
 判断是否为平衡二叉树。。。没思路
 
+借用55-1的求深度的函数，判断左右子树的深度差
+
+class Solution:
+    def isBalanced(self, root: TreeNode) -> bool:
+        if not root: return True
+        return abs(self.maxdepth(root.left) - self.maxdepth(root.right)) <= 1 and self.isBalanced(root.left) and self.isBalanced(root.right)
+
+    def maxdepth(self, root):
+        if not root: return 0
+        return max(self.maxdepth(root.left), self.maxdepth(root.right)) + 1
