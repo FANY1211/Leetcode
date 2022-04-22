@@ -28,4 +28,8 @@ class Solution:
 
         return len(res)        
 
-也可以用DFS，后面用
+也可以用DFS：递归地使用函数，每次返回某节点的最大深度
+class Solution:
+    def maxDepth(self, root: TreeNode) -> int:
+        if not root: return 0
+        return max(self.maxDepth(root.left), self.maxDepth(root.right)) + 1
