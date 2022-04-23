@@ -1,0 +1,32 @@
+思路：
+使用双指针，分别指向首尾，通过条件判断来向内移动双指针
+
+class Solution:
+     def exchange(self, nums: List[int]) -> List[int]:
+        l, r = 0, len(nums) - 1
+        while l <= r:
+            if nums[l] % 2 != 0 and nums[r] % 2 == 0:
+                l += 1
+                r -= 1
+            elif nums[l] % 2 == 0 and nums[r] % 2 != 0:
+                nums[l], nums[r] = nums[r], nums[l]
+            elif nums[l] % 2 == 0 and nums[r] % 2 == 0:
+                r -= 1
+            else:
+                l += 1
+        
+        return nums
+
+简略写法，减少重复判断：
+class Solution:
+    def exchange(self, nums: List[int]) -> List[int]:
+        l, r = 0, len(nums) - 1
+        while l < r:
+            while l < r and nums[l] % 2 == 1:  #一直要找到偶数才停
+                l += 1
+            while l < r and nums[r] % 2 == 0:  #一直要找到奇数才停
+                r -= 1
+            nums[l], nums[r] = nums[r], nums[l]
+        
+        return nums
+ x&1 位运算 等价于 x%2 取余运算，即皆可用于判断数字奇偶性。
