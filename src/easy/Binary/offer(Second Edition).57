@@ -1,0 +1,11 @@
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        l, r = 0, len(nums) - 1
+        while l < r:
+            mid = l + (r - l) // 2
+            if nums[mid] * 2 < target:
+                l += 1
+            elif nums[mid] * 2 > target:
+                r -= 1
+            else:
+                return [nums[l],nums[r]]
