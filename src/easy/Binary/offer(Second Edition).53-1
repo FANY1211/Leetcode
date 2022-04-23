@@ -1,0 +1,33 @@
+思路：
+利用两次二分法，分别找到左右边界
+注意：这里为什么要用while l <= r？要好好思考
+
+class Solution:
+    def search(self, nums: List[int], target: int) -> int: 
+        i, j = 0, 0
+        l, r = 0, len(nums) - 1
+        while l <= r:
+            mid = l + (r - l) // 2
+            if nums[mid] > target:
+                r = mid - 1
+            elif nums[mid] < target:
+                l = mid + 1
+            else:
+                r -= 1
+        i = l
+
+#细节2：查找完左边界后，可用 nums[i] = target 判断数组中是否包含 target, 若不包含则直接提前返回 0 ，无需后续查找右边界。
+
+        r = len(nums) - 1    #细节1：不需要再从头开始二分，因为已经找出来了左边界，所以直接从左边界开始就行
+        while l <= r:
+            mid = l + (r - l) // 2
+            if nums[mid] > target:
+                r = mid - 1
+            elif nums[mid] < target:
+                l = mid + 1
+            else:
+                l += 1
+        
+        j = l - 1
+
+        return j - i + 1
